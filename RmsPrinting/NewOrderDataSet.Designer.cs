@@ -337,6 +337,14 @@ namespace RmsPrinting {
             
             private global::System.Data.DataColumn columndeliver_to_address;
             
+            private global::System.Data.DataColumn columnreceived_through;
+            
+            private global::System.Data.DataColumn columnex_st;
+            
+            private global::System.Data.DataColumn columnst;
+            
+            private global::System.Data.DataColumn columninc_st;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public OrderDataTable() {
@@ -436,6 +444,38 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn received_throughColumn {
+                get {
+                    return this.columnreceived_through;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn ex_stColumn {
+                get {
+                    return this.columnex_st;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn stColumn {
+                get {
+                    return this.columnst;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn inc_stColumn {
+                get {
+                    return this.columninc_st;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -471,7 +511,7 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OrderRow AddOrderRow(string id, string order_type, System.DateTime order_datetime, string portion, string table_name, string deliver_to_name, string deliver_to_phone, string deliver_to_address) {
+            public OrderRow AddOrderRow(string id, string order_type, System.DateTime order_datetime, string portion, string table_name, string deliver_to_name, string deliver_to_phone, string deliver_to_address, string received_through, decimal ex_st, decimal st, decimal inc_st) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -481,7 +521,11 @@ namespace RmsPrinting {
                         table_name,
                         deliver_to_name,
                         deliver_to_phone,
-                        deliver_to_address};
+                        deliver_to_address,
+                        received_through,
+                        ex_st,
+                        st,
+                        inc_st};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -512,6 +556,10 @@ namespace RmsPrinting {
                 this.columndeliver_to_name = base.Columns["deliver_to_name"];
                 this.columndeliver_to_phone = base.Columns["deliver_to_phone"];
                 this.columndeliver_to_address = base.Columns["deliver_to_address"];
+                this.columnreceived_through = base.Columns["received_through"];
+                this.columnex_st = base.Columns["ex_st"];
+                this.columnst = base.Columns["st"];
+                this.columninc_st = base.Columns["inc_st"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -533,6 +581,14 @@ namespace RmsPrinting {
                 base.Columns.Add(this.columndeliver_to_phone);
                 this.columndeliver_to_address = new global::System.Data.DataColumn("deliver_to_address", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndeliver_to_address);
+                this.columnreceived_through = new global::System.Data.DataColumn("received_through", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnreceived_through);
+                this.columnex_st = new global::System.Data.DataColumn("ex_st", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnex_st);
+                this.columnst = new global::System.Data.DataColumn("st", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnst);
+                this.columninc_st = new global::System.Data.DataColumn("inc_st", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columninc_st);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1137,6 +1193,70 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string received_through {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrder.received_throughColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'received_through\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.received_throughColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal ex_st {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.ex_stColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ex_st\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.ex_stColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal st {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.stColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'st\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.stColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal inc_st {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.inc_stColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'inc_st\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.inc_stColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsidNull() {
                 return this.IsNull(this.tableOrder.idColumn);
             }
@@ -1229,6 +1349,54 @@ namespace RmsPrinting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void Setdeliver_to_addressNull() {
                 this[this.tableOrder.deliver_to_addressColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isreceived_throughNull() {
+                return this.IsNull(this.tableOrder.received_throughColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setreceived_throughNull() {
+                this[this.tableOrder.received_throughColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isex_stNull() {
+                return this.IsNull(this.tableOrder.ex_stColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setex_stNull() {
+                this[this.tableOrder.ex_stColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsstNull() {
+                return this.IsNull(this.tableOrder.stColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetstNull() {
+                this[this.tableOrder.stColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isinc_stNull() {
+                return this.IsNull(this.tableOrder.inc_stColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setinc_stNull() {
+                this[this.tableOrder.inc_stColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

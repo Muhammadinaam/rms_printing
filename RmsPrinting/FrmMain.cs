@@ -129,7 +129,84 @@ namespace RmsPrinting
                 {
                     PrintNewOrder(r["entity_id"].ToString(), r["id"].ToString());
                 }
+                else if (r["print_type"].ToString() == "Customer Print")
+                {
+                    PrintOrderForCustomer(r["entity_id"].ToString(), r["id"].ToString());
+                }
             }
+        }
+
+        private void PrintOrderForCustomer(string order_id, string job_id)
+        {
+            NewOrderDataSet ds = new NewOrderDataSet();
+
+
+            DataTable order = MySqlFunctions.GetTable(
+                "select tos.id, order_types.name as order_type, tos.order_datetime, " +
+                "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
+                "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
+                "tos.sales_tax as st, tos.order_amount_inc_st as inc_st " +
+                "from tos " +
+                "join order_types on order_types.id = tos.order_type_id " +
+                "join tables on tables.id = tos.table_id " +
+                "where tos.id = " + order_id + "; ", Program.GlobalConn);
+
+
+
+            DataTable detail = MySqlFunctions.GetTable(
+                "select tos_details.to_id as order_id, items.category, items.code as item_code , items.name as item_name, " +
+                "tos_details.qty, tos_details.rate, tos_details.amount " +
+                "from tos_details " +
+                "join items on items.id = tos_details.item_id " +
+                " where tos_details.to_id = " + order_id + "; ", Program.GlobalConn);
+
+
+            foreach (DataRow r in order.Rows)
+            {
+                ds.Order.AddOrderRow(
+                    r["id"].ToString(),
+                    r["order_type"].ToString(),
+                    (System.DateTime)r["order_datetime"],
+                    r["portion"].ToString(),
+                    r["table_name"].ToString(),
+                    r["deliver_to_name"].ToString(),
+                    r["deliver_to_phone"].ToString(),
+                    r["deliver_to_address"].ToString(),
+                    r["received_through"].ToString(),
+                    (decimal)r["ex_st"],
+                    (decimal)r["st"],
+                    (decimal)r["inc_st"]
+                    );
+            }
+
+            foreach (DataRow r in detail.Rows)
+            {
+                ds.OrderDetail.AddOrderDetailRow(
+                    (NewOrderDataSet.OrderRow)ds.Order.Rows[0],
+                    r["category"].ToString(),
+                    r["item_code"].ToString(),
+                    r["item_name"].ToString(),
+                    (decimal)r["qty"],
+                    (decimal)r["rate"],
+                    (decimal)r["amount"]
+
+                    );
+            }
+
+            PrintForCustomer report = new PrintForCustomer();
+            report.SetDataSource(ds);
+
+
+            foreach (DataRow r in pos_printers_dt.Rows)
+            {
+                report.PrintOptions.PrinterName = r["Printer"].ToString();
+                report.PrintToPrinter(1, false, 0, 0);
+            }
+
+            MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' " +
+                "where id = '" + job_id + "'", Program.GlobalConn);
+
+
         }
 
         private void PrintNewOrder(string order_id, string job_id)
@@ -140,7 +217,8 @@ namespace RmsPrinting
             DataTable order = MySqlFunctions.GetTable(
                 "select tos.id, order_types.name as order_type, tos.order_datetime, " +
                 "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
-                "tos.deliver_to_address " +
+                "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
+                "tos.sales_tax as st, tos.order_amount_inc_st as inc_st " +
                 "from tos " +
                 "join order_types on order_types.id = tos.order_type_id " +
                 "join tables on tables.id = tos.table_id " +
@@ -166,7 +244,11 @@ namespace RmsPrinting
                     r["table_name"].ToString(),
                     r["deliver_to_name"].ToString(),
                     r["deliver_to_phone"].ToString(),
-                    r["deliver_to_address"].ToString()
+                    r["deliver_to_address"].ToString(),
+                    r["received_through"].ToString(),
+                    (decimal)r["ex_st"],
+                    (decimal)r["st"],
+                    (decimal)r["inc_st"]
                     );
             }
 
