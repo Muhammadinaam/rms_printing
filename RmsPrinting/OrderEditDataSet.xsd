@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="OrderEditDataSet" targetNamespace="http://tempuri.org/OrderEditDataSet.xsd" xmlns:mstns="http://tempuri.org/OrderEditDataSet.xsd" xmlns="http://tempuri.org/OrderEditDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="OrderEditDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="OrderEditDataSet" msprop:Generator_UserDSName="OrderEditDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="OrderEdit" msprop:Generator_TableClassName="OrderEditDataTable" msprop:Generator_TableVarName="tableOrderEdit" msprop:Generator_TablePropName="OrderEdit" msprop:Generator_RowDeletingName="OrderEditRowDeleting" msprop:Generator_RowChangingName="OrderEditRowChanging" msprop:Generator_RowEvHandlerName="OrderEditRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderEditRowDeleted" msprop:Generator_UserTableName="OrderEdit" msprop:Generator_RowChangedName="OrderEditRowChanged" msprop:Generator_RowEvArgName="OrderEditRowChangeEvent" msprop:Generator_RowClassName="OrderEditRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="order_id" msprop:Generator_ColumnVarNameInTable="columnorder_id" msprop:Generator_ColumnPropNameInRow="order_id" msprop:Generator_ColumnPropNameInTable="order_idColumn" msprop:Generator_UserColumnName="order_id" type="xs:string" minOccurs="0" />
+              <xs:element name="portion" msprop:Generator_ColumnVarNameInTable="columnportion" msprop:Generator_ColumnPropNameInRow="portion" msprop:Generator_ColumnPropNameInTable="portionColumn" msprop:Generator_UserColumnName="portion" type="xs:string" minOccurs="0" />
+              <xs:element name="table_name" msprop:Generator_ColumnVarNameInTable="columntable_name" msprop:Generator_ColumnPropNameInRow="table_name" msprop:Generator_ColumnPropNameInTable="table_nameColumn" msprop:Generator_UserColumnName="table_name" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="OrderEditDetails" msprop:Generator_TableClassName="OrderEditDetailsDataTable" msprop:Generator_TableVarName="tableOrderEditDetails" msprop:Generator_TablePropName="OrderEditDetails" msprop:Generator_RowDeletingName="OrderEditDetailsRowDeleting" msprop:Generator_RowChangingName="OrderEditDetailsRowChanging" msprop:Generator_RowEvHandlerName="OrderEditDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderEditDetailsRowDeleted" msprop:Generator_UserTableName="OrderEditDetails" msprop:Generator_RowChangedName="OrderEditDetailsRowChanged" msprop:Generator_RowEvArgName="OrderEditDetailsRowChangeEvent" msprop:Generator_RowClassName="OrderEditDetailsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="edit_type" msprop:Generator_ColumnVarNameInTable="columnedit_type" msprop:Generator_ColumnPropNameInRow="edit_type" msprop:Generator_ColumnPropNameInTable="edit_typeColumn" msprop:Generator_UserColumnName="edit_type" type="xs:string" minOccurs="0" />
+              <xs:element name="category" msprop:Generator_ColumnVarNameInTable="columncategory" msprop:Generator_ColumnPropNameInRow="category" msprop:Generator_ColumnPropNameInTable="categoryColumn" msprop:Generator_UserColumnName="category" type="xs:string" minOccurs="0" />
+              <xs:element name="item_name" msprop:Generator_ColumnVarNameInTable="columnitem_name" msprop:Generator_ColumnPropNameInRow="item_name" msprop:Generator_ColumnPropNameInTable="item_nameColumn" msprop:Generator_UserColumnName="item_name" type="xs:string" minOccurs="0" />
+              <xs:element name="qty" msprop:Generator_ColumnVarNameInTable="columnqty" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_UserColumnName="qty" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

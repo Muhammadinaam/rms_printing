@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewOrderDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="OrderEditDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderEditDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PrintForCustomer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,6 +148,17 @@
     </None>
     <None Include="NewOrderDataSet.xss">
       <DependentUpon>NewOrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OrderEditDataSet.xsc">
+      <DependentUpon>OrderEditDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OrderEditDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderEditDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="OrderEditDataSet.xss">
+      <DependentUpon>OrderEditDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
