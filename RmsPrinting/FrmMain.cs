@@ -119,7 +119,7 @@ namespace RmsPrinting
             pos_printers_dt = Program.loadDTfromFile(pos_printers);
             kitchen_printers_dt = Program.loadDTfromFile(kitchen_printers);
 
-
+            
 
             DataTable dt_print_jobs = MySqlFunctions.GetTable("SELECT * FROM print_jobs where executed_at is null;", Program.GlobalConn);
 
@@ -281,6 +281,9 @@ namespace RmsPrinting
 
         private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")
         {
+            
+
+
             NewOrderDataSet ds = new NewOrderDataSet();
 
             
@@ -360,6 +363,19 @@ namespace RmsPrinting
 
             if (backgroundWorker1.IsBusy == false)
                 backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                PrintTimer.Stop();
+                timer1.Stop();
+                lbl_status.Text = "Error Occurred. Please restart after removing error";
+
+                MessageBox.Show(e.Error.ToString());
+                
+            }
         }
     }
 }
