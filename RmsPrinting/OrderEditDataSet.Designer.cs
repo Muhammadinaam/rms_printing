@@ -28,6 +28,8 @@ namespace RmsPrinting {
         
         private OrderEditDetailsDataTable tableOrderEditDetails;
         
+        private global::System.Data.DataRelation relationOrderEdit_OrderEditDetails;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -218,6 +220,7 @@ namespace RmsPrinting {
                     this.tableOrderEditDetails.InitVars();
                 }
             }
+            this.relationOrderEdit_OrderEditDetails = this.Relations["OrderEdit_OrderEditDetails"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -232,6 +235,10 @@ namespace RmsPrinting {
             base.Tables.Add(this.tableOrderEdit);
             this.tableOrderEditDetails = new OrderEditDetailsDataTable();
             base.Tables.Add(this.tableOrderEditDetails);
+            this.relationOrderEdit_OrderEditDetails = new global::System.Data.DataRelation("OrderEdit_OrderEditDetails", new global::System.Data.DataColumn[] {
+                        this.tableOrderEdit.idColumn}, new global::System.Data.DataColumn[] {
+                        this.tableOrderEditDetails.edit_idColumn}, false);
+            this.Relations.Add(this.relationOrderEdit_OrderEditDetails);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -314,6 +321,8 @@ namespace RmsPrinting {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class OrderEditDataTable : global::System.Data.TypedTableBase<OrderEditRow> {
             
+            private global::System.Data.DataColumn columnid;
+            
             private global::System.Data.DataColumn columnorder_id;
             
             private global::System.Data.DataColumn columnportion;
@@ -351,6 +360,14 @@ namespace RmsPrinting {
             protected OrderEditDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn idColumn {
+                get {
+                    return this.columnid;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -414,9 +431,10 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OrderEditRow AddOrderEditRow(string order_id, string portion, string table_name) {
+            public OrderEditRow AddOrderEditRow(string id, string order_id, string portion, string table_name) {
                 OrderEditRow rowOrderEditRow = ((OrderEditRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        id,
                         order_id,
                         portion,
                         table_name};
@@ -442,6 +460,7 @@ namespace RmsPrinting {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
+                this.columnid = base.Columns["id"];
                 this.columnorder_id = base.Columns["order_id"];
                 this.columnportion = base.Columns["portion"];
                 this.columntable_name = base.Columns["table_name"];
@@ -450,6 +469,8 @@ namespace RmsPrinting {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
+                this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnid);
                 this.columnorder_id = new global::System.Data.DataColumn("order_id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnorder_id);
                 this.columnportion = new global::System.Data.DataColumn("portion", typeof(string), null, global::System.Data.MappingType.Element);
@@ -589,9 +610,13 @@ namespace RmsPrinting {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class OrderEditDetailsDataTable : global::System.Data.TypedTableBase<OrderEditDetailsRow> {
             
+            private global::System.Data.DataColumn columnedit_id;
+            
             private global::System.Data.DataColumn columnedit_type;
             
             private global::System.Data.DataColumn columncategory;
+            
+            private global::System.Data.DataColumn columncode;
             
             private global::System.Data.DataColumn columnitem_name;
             
@@ -632,6 +657,14 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn edit_idColumn {
+                get {
+                    return this.columnedit_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public global::System.Data.DataColumn edit_typeColumn {
                 get {
                     return this.columnedit_type;
@@ -643,6 +676,14 @@ namespace RmsPrinting {
             public global::System.Data.DataColumn categoryColumn {
                 get {
                     return this.columncategory;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn codeColumn {
+                get {
+                    return this.columncode;
                 }
             }
             
@@ -699,13 +740,18 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OrderEditDetailsRow AddOrderEditDetailsRow(string edit_type, string category, string item_name, string qty) {
+            public OrderEditDetailsRow AddOrderEditDetailsRow(OrderEditRow parentOrderEditRowByOrderEdit_OrderEditDetails, string edit_type, string category, string code, string item_name, string qty) {
                 OrderEditDetailsRow rowOrderEditDetailsRow = ((OrderEditDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
+                        null,
                         edit_type,
                         category,
+                        code,
                         item_name,
                         qty};
+                if ((parentOrderEditRowByOrderEdit_OrderEditDetails != null)) {
+                    columnValuesArray[0] = parentOrderEditRowByOrderEdit_OrderEditDetails[0];
+                }
                 rowOrderEditDetailsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderEditDetailsRow);
                 return rowOrderEditDetailsRow;
@@ -728,8 +774,10 @@ namespace RmsPrinting {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
+                this.columnedit_id = base.Columns["edit_id"];
                 this.columnedit_type = base.Columns["edit_type"];
                 this.columncategory = base.Columns["category"];
+                this.columncode = base.Columns["code"];
                 this.columnitem_name = base.Columns["item_name"];
                 this.columnqty = base.Columns["qty"];
             }
@@ -737,10 +785,14 @@ namespace RmsPrinting {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
+                this.columnedit_id = new global::System.Data.DataColumn("edit_id", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnedit_id);
                 this.columnedit_type = new global::System.Data.DataColumn("edit_type", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnedit_type);
                 this.columncategory = new global::System.Data.DataColumn("category", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncategory);
+                this.columncode = new global::System.Data.DataColumn("code", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncode);
                 this.columnitem_name = new global::System.Data.DataColumn("item_name", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnitem_name);
                 this.columnqty = new global::System.Data.DataColumn("qty", typeof(string), null, global::System.Data.MappingType.Element);
@@ -887,6 +939,22 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string id {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrderEdit.idColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'id\' in table \'OrderEdit\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrderEdit.idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public string order_id {
                 get {
                     try {
@@ -935,6 +1003,18 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsidNull() {
+                return this.IsNull(this.tableOrderEdit.idColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetidNull() {
+                this[this.tableOrderEdit.idColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool Isorder_idNull() {
                 return this.IsNull(this.tableOrderEdit.order_idColumn);
             }
@@ -968,6 +1048,17 @@ namespace RmsPrinting {
             public void Settable_nameNull() {
                 this[this.tableOrderEdit.table_nameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public OrderEditDetailsRow[] GetOrderEditDetailsRows() {
+                if ((this.Table.ChildRelations["OrderEdit_OrderEditDetails"] == null)) {
+                    return new OrderEditDetailsRow[0];
+                }
+                else {
+                    return ((OrderEditDetailsRow[])(base.GetChildRows(this.Table.ChildRelations["OrderEdit_OrderEditDetails"])));
+                }
+            }
         }
         
         /// <summary>
@@ -982,6 +1073,22 @@ namespace RmsPrinting {
             internal OrderEditDetailsRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
                 this.tableOrderEditDetails = ((OrderEditDetailsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string edit_id {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrderEditDetails.edit_idColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'edit_id\' in table \'OrderEditDetails\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrderEditDetails.edit_idColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1013,6 +1120,22 @@ namespace RmsPrinting {
                 }
                 set {
                     this[this.tableOrderEditDetails.categoryColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string code {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrderEditDetails.codeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'code\' in table \'OrderEditDetails\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrderEditDetails.codeColumn] = value;
                 }
             }
             
@@ -1050,6 +1173,29 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public OrderEditRow OrderEditRow {
+                get {
+                    return ((OrderEditRow)(this.GetParentRow(this.Table.ParentRelations["OrderEdit_OrderEditDetails"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["OrderEdit_OrderEditDetails"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isedit_idNull() {
+                return this.IsNull(this.tableOrderEditDetails.edit_idColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setedit_idNull() {
+                this[this.tableOrderEditDetails.edit_idColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool Isedit_typeNull() {
                 return this.IsNull(this.tableOrderEditDetails.edit_typeColumn);
             }
@@ -1070,6 +1216,18 @@ namespace RmsPrinting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetcategoryNull() {
                 this[this.tableOrderEditDetails.categoryColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscodeNull() {
+                return this.IsNull(this.tableOrderEditDetails.codeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcodeNull() {
+                this[this.tableOrderEditDetails.codeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
