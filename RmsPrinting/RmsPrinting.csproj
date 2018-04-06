@@ -95,6 +95,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewOrderDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="OrderCancellation.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrderCancellation.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="OrderEditDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,6 +136,10 @@
     <EmbeddedResource Include="NewOrderReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>NewOrderReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderCancellation.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>OrderCancellation.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderEditReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

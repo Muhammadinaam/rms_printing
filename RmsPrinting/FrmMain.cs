@@ -141,7 +141,32 @@ namespace RmsPrinting
                 {
                     PrintOrderForCustomer(r["entity_id"].ToString(), r["id"].ToString());
                 }
+                else if (r["print_type"].ToString() == "Order Cancelled")
+                {
+                    PrintOrderCancellation(r["entity_id"].ToString(), r["id"].ToString());
+                }
+
             }
+        }
+
+        private void PrintOrderCancellation(string order_id, string job_id)
+        {
+            
+
+            OrderCancellation report = new OrderCancellation();
+            report.DataDefinition.FormulaFields["order_id"].Text = "'" + order_id + "'";
+
+
+            foreach (DataRow r in kitchen_printers_dt.Rows)
+            {
+                report.PrintOptions.PrinterName = r["Printer"].ToString();
+                report.PrintToPrinter(1, false, 0, 0);
+            }
+
+            MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' " +
+                "where id = '" + job_id + "'", Program.GlobalConn);
+
+
         }
 
         private void PrintOrderEdit(string edit_id, string job_id)
