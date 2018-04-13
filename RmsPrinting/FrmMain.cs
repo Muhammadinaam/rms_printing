@@ -151,9 +151,11 @@ namespace RmsPrinting
 
         private void PrintOrderCancellation(string order_id, string job_id)
         {
+            OrderCancellation report = new OrderCancellation();
             try
             {
-                OrderCancellation report = new OrderCancellation();
+
+
                 report.DataDefinition.FormulaFields["order_id"].Text = "'" + order_id + "'";
 
 
@@ -169,11 +171,14 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-                
+
 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
                     " error = '" + ex.Message + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
+            }
+            finally {
+                report.Dispose();
             }
 
 
@@ -183,6 +188,7 @@ namespace RmsPrinting
         private void PrintOrderEdit(string edit_id, string job_id)
         {
 
+                OrderEditReport report = new OrderEditReport();
             try
             {
                 OrderEditDataSet ds = new OrderEditDataSet();
@@ -229,7 +235,6 @@ namespace RmsPrinting
                         );
                 }
 
-                OrderEditReport report = new OrderEditReport();
                 report.SetDataSource(ds);
 
 
@@ -250,6 +255,10 @@ namespace RmsPrinting
                     " error = '" + ex.Message + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
             }
+            finally
+            {
+                report.Dispose();
+            }
 
 
         }
@@ -257,6 +266,7 @@ namespace RmsPrinting
         private void PrintOrderForCustomer(string order_id, string job_id)
         {
 
+                PrintForCustomer report = new PrintForCustomer();
             try
             {
 
@@ -315,7 +325,6 @@ namespace RmsPrinting
                         );
                 }
 
-                PrintForCustomer report = new PrintForCustomer();
                 report.SetDataSource(ds);
 
 
@@ -335,6 +344,10 @@ namespace RmsPrinting
                     " error = '" + ex.Message + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
             }
+            finally
+            {
+                report.Dispose();
+            }
 
 
 
@@ -343,6 +356,7 @@ namespace RmsPrinting
         private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")
         {
 
+                NewOrderReport report = new NewOrderReport();
             try
             {
                 NewOrderDataSet ds = new NewOrderDataSet();
@@ -401,7 +415,6 @@ namespace RmsPrinting
                         );
                 }
 
-                NewOrderReport report = new NewOrderReport();
                 report.DataDefinition.FormulaFields["ReportTitle"].Text = "'" + title + "'";
                 report.SetDataSource(ds);
 
@@ -422,10 +435,14 @@ namespace RmsPrinting
                     "where id = '" + job_id + "'", Program.GlobalConn);
 
             }
+            finally
+            {
+                report.Dispose();
+            }
 
-            
 
-            
+
+
         }
 
         private void PrintTimer_Tick(object sender, EventArgs e)
