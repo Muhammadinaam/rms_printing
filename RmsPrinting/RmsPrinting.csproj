@@ -84,6 +84,9 @@
       <DependentUpon>FrmPrinters.cs</DependentUpon>
     </Compile>
     <Compile Include="MySqlFunctions.cs" />
+    <Compile Include="NewOrderDataSet.cs">
+      <DependentUpon>NewOrderDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="NewOrderReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

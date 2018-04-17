@@ -345,6 +345,12 @@ namespace RmsPrinting {
             
             private global::System.Data.DataColumn columninc_st;
             
+            private global::System.Data.DataColumn columncover;
+            
+            private global::System.Data.DataColumn columndiscount;
+            
+            private global::System.Data.DataColumn columnbefore_discount;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public OrderDataTable() {
@@ -476,6 +482,30 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn coverColumn {
+                get {
+                    return this.columncover;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn discountColumn {
+                get {
+                    return this.columndiscount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn before_discountColumn {
+                get {
+                    return this.columnbefore_discount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -511,7 +541,7 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OrderRow AddOrderRow(string id, string order_type, System.DateTime order_datetime, string portion, string table_name, string deliver_to_name, string deliver_to_phone, string deliver_to_address, string received_through, decimal ex_st, decimal st, decimal inc_st) {
+            public OrderRow AddOrderRow(string id, string order_type, System.DateTime order_datetime, string portion, string table_name, string deliver_to_name, string deliver_to_phone, string deliver_to_address, string received_through, decimal ex_st, decimal st, decimal inc_st, decimal cover, decimal discount, decimal before_discount) {
                 OrderRow rowOrderRow = ((OrderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -525,7 +555,10 @@ namespace RmsPrinting {
                         received_through,
                         ex_st,
                         st,
-                        inc_st};
+                        inc_st,
+                        cover,
+                        discount,
+                        before_discount};
                 rowOrderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowOrderRow);
                 return rowOrderRow;
@@ -560,6 +593,9 @@ namespace RmsPrinting {
                 this.columnex_st = base.Columns["ex_st"];
                 this.columnst = base.Columns["st"];
                 this.columninc_st = base.Columns["inc_st"];
+                this.columncover = base.Columns["cover"];
+                this.columndiscount = base.Columns["discount"];
+                this.columnbefore_discount = base.Columns["before_discount"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -589,6 +625,12 @@ namespace RmsPrinting {
                 base.Columns.Add(this.columnst);
                 this.columninc_st = new global::System.Data.DataColumn("inc_st", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columninc_st);
+                this.columncover = new global::System.Data.DataColumn("cover", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncover);
+                this.columndiscount = new global::System.Data.DataColumn("discount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndiscount);
+                this.columnbefore_discount = new global::System.Data.DataColumn("before_discount", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnbefore_discount);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1257,6 +1299,54 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal cover {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.coverColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'cover\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.coverColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal discount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.discountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'discount\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.discountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public decimal before_discount {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableOrder.before_discountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'before_discount\' in table \'Order\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrder.before_discountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsidNull() {
                 return this.IsNull(this.tableOrder.idColumn);
             }
@@ -1397,6 +1487,42 @@ namespace RmsPrinting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void Setinc_stNull() {
                 this[this.tableOrder.inc_stColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IscoverNull() {
+                return this.IsNull(this.tableOrder.coverColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetcoverNull() {
+                this[this.tableOrder.coverColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsdiscountNull() {
+                return this.IsNull(this.tableOrder.discountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetdiscountNull() {
+                this[this.tableOrder.discountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isbefore_discountNull() {
+                return this.IsNull(this.tableOrder.before_discountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setbefore_discountNull() {
+                this[this.tableOrder.before_discountColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -277,7 +277,8 @@ namespace RmsPrinting
                     "select tos.id, order_types.name as order_type, tos.order_datetime, " +
                     "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
                     "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
-                    "tos.sales_tax as st, tos.order_amount_inc_st as inc_st " +
+                    "tos.sales_tax as st, tos.order_amount_inc_st as inc_st, " +
+                    "tos.cover, tos.discount, tos.order_amount_before_discount as before_discount " +
                     "from tos " +
                     "join order_types on order_types.id = tos.order_type_id " +
                     "left join tables on tables.id = tos.table_id " +
@@ -292,9 +293,15 @@ namespace RmsPrinting
                     "join items on items.id = tos_details.item_id " +
                     " where tos_details.to_id = " + order_id + "; ", Program.GlobalConn);
 
+                
+                
 
                 foreach (DataRow r in order.Rows)
                 {
+                    decimal cover = r["cover"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["cover"].ToString());
+                    decimal discount = r["discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["discount"].ToString());
+                    decimal before_discount = r["before_discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["before_discount"].ToString());
+
                     ds.Order.AddOrderRow(
                         r["id"].ToString(),
                         r["order_type"].ToString(),
@@ -307,7 +314,11 @@ namespace RmsPrinting
                         r["received_through"].ToString(),
                         (decimal)r["ex_st"],
                         (decimal)r["st"],
-                        (decimal)r["inc_st"]
+                        (decimal)r["inc_st"],
+
+                        cover,
+                        discount,
+                        before_discount
                         );
                 }
 
@@ -339,7 +350,7 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-
+                
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
                     " error = '" + ex.Message + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
@@ -366,7 +377,8 @@ namespace RmsPrinting
                     "select tos.id, order_types.name as order_type, tos.order_datetime, " +
                     "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
                     "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
-                    "tos.sales_tax as st, tos.order_amount_inc_st as inc_st " +
+                    "tos.sales_tax as st, tos.order_amount_inc_st as inc_st, " +
+                    "tos.cover, tos.discount, tos.order_amount_before_discount as before_discount " +
                     "from tos " +
                     "join order_types on order_types.id = tos.order_type_id " +
                     "left join tables on tables.id = tos.table_id " +
@@ -384,6 +396,10 @@ namespace RmsPrinting
 
                 foreach (DataRow r in order.Rows)
                 {
+                    decimal cover = r["cover"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["cover"].ToString());
+                    decimal discount = r["discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["discount"].ToString());
+                    decimal before_discount = r["before_discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["before_discount"].ToString());
+
                     ds.Order.AddOrderRow(
                         r["id"].ToString(),
                         r["order_type"].ToString(),
@@ -396,7 +412,11 @@ namespace RmsPrinting
                         r["received_through"].ToString(),
                         (decimal)r["ex_st"],
                         (decimal)r["st"],
-                        (decimal)r["inc_st"]
+                        (decimal)r["inc_st"],
+
+                        cover,
+                        discount,
+                        before_discount
                         );
                 }
 
