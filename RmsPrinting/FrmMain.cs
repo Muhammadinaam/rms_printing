@@ -185,64 +185,87 @@ namespace RmsPrinting
 
         }
 
+        private OrderEditDataSet generateOrderEditDataSet(string edit_id, string category)
+        {
+            OrderEditDataSet ds = new OrderEditDataSet();
+
+
+            DataTable edit = MySqlFunctions.GetTable(
+                "select tos_edits.id, tos_edits.to_id as order_id, " +
+                "tables.portion, tables.name as table_name from tos_edits " +
+                "left join tables on tables.id = tos_edits.new_table_id " +
+                "where tos_edits.id = '" + edit_id + "'", Program.GlobalConn);
+
+
+            string detail_query = "select tos_edits_details.to_edit_id as edit_id, " +
+                "tos_edits_details.edit_type, items.category, " +
+                "items.code as code, items.name as item_name, tos_edits_details.qty  " +
+                "from tos_edits_details " +
+                "join items on items.id = tos_edits_details.item_id" +
+                " where tos_edits_details.to_edit_id = '" + edit_id + "'";
+
+            if (category != "")
+            {
+                detail_query += " and items.category = '"+category+"' ";
+            }
+
+            DataTable detail = MySqlFunctions.GetTable(detail_query, Program.GlobalConn);
+
+
+            foreach (DataRow r in edit.Rows)
+            {
+                ds.OrderEdit.AddOrderEditRow(
+                        r["id"].ToString(),
+                        r["order_id"].ToString(),
+                        r["portion"].ToString(),
+                        r["table_name"].ToString()
+                    );
+
+
+            }
+
+            foreach (DataRow r in detail.Rows)
+            {
+                ds.OrderEditDetails.AddOrderEditDetailsRow(
+                        (OrderEditDataSet.OrderEditRow)ds.OrderEdit.Rows[0],
+                        r["edit_type"].ToString(),
+                        r["category"].ToString(),
+                        r["code"].ToString(),
+                        r["item_name"].ToString(),
+                        r["qty"].ToString()
+                    );
+            }
+
+            return ds;
+        }
+
         private void PrintOrderEdit(string edit_id, string job_id)
         {
 
+            
                 OrderEditReport report = new OrderEditReport();
             try
             {
-                OrderEditDataSet ds = new OrderEditDataSet();
-
-
-                DataTable edit = MySqlFunctions.GetTable(
-                    "select tos_edits.id, tos_edits.to_id as order_id, " +
-                    "tables.portion, tables.name as table_name from tos_edits " +
-                    "left join tables on tables.id = tos_edits.new_table_id " +
-                    "where tos_edits.id = '"+edit_id+"'", Program.GlobalConn);
-
-
-
-                DataTable detail = MySqlFunctions.GetTable(
-                    "select tos_edits_details.to_edit_id as edit_id, " +
-                    "tos_edits_details.edit_type, items.category, " +
-                    "items.code as code, items.name as item_name, tos_edits_details.qty  " +
-                    "from tos_edits_details " +
-                    "join items on items.id = tos_edits_details.item_id" +
-                    " where tos_edits_details.to_edit_id = '"+edit_id+"'", Program.GlobalConn);
-
-
-                foreach (DataRow r in edit.Rows)
-                {
-                    ds.OrderEdit.AddOrderEditRow(
-                            r["id"].ToString(),
-                            r["order_id"].ToString(),
-                            r["portion"].ToString(),
-                            r["table_name"].ToString()
-                        );
 
                 
-                }
 
-                foreach (DataRow r in detail.Rows)
-                {
-                    ds.OrderEditDetails.AddOrderEditDetailsRow(
-                            (OrderEditDataSet.OrderEditRow)ds.OrderEdit.Rows[0],
-                            r["edit_type"].ToString(),
-                            r["category"].ToString(),
-                            r["code"].ToString(),
-                            r["item_name"].ToString(),
-                            r["qty"].ToString()
-                        );
-                }
-
-                report.SetDataSource(ds);
-
+                
 
                 foreach (DataRow r in kitchen_printers_dt.Rows)
                 {
-                    report.PrintOptions.PrinterName = r["Printer"].ToString();
-                    report.PrintToPrinter(1, false, 0, 0);
+
+                    OrderEditDataSet ds = generateOrderEditDataSet(edit_id, r["Category"].ToString());
+
+                    if (ds.OrderEditDetails.Rows.Count > 0)
+                    {
+                        report.SetDataSource(ds);
+                        report.PrintOptions.PrinterName = r["Printer"].ToString();
+                        report.PrintToPrinter(1, false, 0, 0);
+                    }
                 }
+
+
+                
 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
