@@ -270,71 +270,7 @@ namespace RmsPrinting
             try
             {
 
-                NewOrderDataSet ds = new NewOrderDataSet();
-
-
-                DataTable order = MySqlFunctions.GetTable(
-                    "select tos.id, order_types.name as order_type, tos.order_datetime, " +
-                    "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
-                    "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
-                    "tos.sales_tax as st, tos.order_amount_inc_st as inc_st, " +
-                    "tos.cover, tos.discount, tos.order_amount_before_discount as before_discount " +
-                    "from tos " +
-                    "join order_types on order_types.id = tos.order_type_id " +
-                    "left join tables on tables.id = tos.table_id " +
-                    "where tos.id = " + order_id + "; ", Program.GlobalConn);
-
-
-
-                DataTable detail = MySqlFunctions.GetTable(
-                    "select tos_details.to_id as order_id, items.category, items.code as item_code , items.name as item_name, " +
-                    "tos_details.qty, tos_details.rate, tos_details.amount " +
-                    "from tos_details " +
-                    "join items on items.id = tos_details.item_id " +
-                    " where tos_details.to_id = " + order_id + "; ", Program.GlobalConn);
-
-                
-                
-
-                foreach (DataRow r in order.Rows)
-                {
-                    decimal cover = r["cover"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["cover"].ToString());
-                    decimal discount = r["discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["discount"].ToString());
-                    decimal before_discount = r["before_discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["before_discount"].ToString());
-
-                    ds.Order.AddOrderRow(
-                        r["id"].ToString(),
-                        r["order_type"].ToString(),
-                        (System.DateTime)r["order_datetime"],
-                        r["portion"].ToString(),
-                        r["table_name"].ToString(),
-                        r["deliver_to_name"].ToString(),
-                        r["deliver_to_phone"].ToString(),
-                        r["deliver_to_address"].ToString(),
-                        r["received_through"].ToString(),
-                        (decimal)r["ex_st"],
-                        (decimal)r["st"],
-                        (decimal)r["inc_st"],
-
-                        cover,
-                        discount,
-                        before_discount
-                        );
-                }
-
-                foreach (DataRow r in detail.Rows)
-                {
-                    ds.OrderDetail.AddOrderDetailRow(
-                        (NewOrderDataSet.OrderRow)ds.Order.Rows[0],
-                        r["category"].ToString(),
-                        r["item_code"].ToString(),
-                        r["item_name"].ToString(),
-                        (decimal)r["qty"],
-                        (decimal)r["rate"],
-                        (decimal)r["amount"]
-
-                        );
-                }
+                NewOrderDataSet ds = generateNewOrderDataSet(order_id);
 
                 report.SetDataSource(ds);
 
@@ -364,16 +300,11 @@ namespace RmsPrinting
 
         }
 
-        private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")
+        private NewOrderDataSet generateNewOrderDataSet(string order_id, string category = "")
         {
+            NewOrderDataSet ds = new NewOrderDataSet();
 
-                NewOrderReport report = new NewOrderReport();
-            try
-            {
-                NewOrderDataSet ds = new NewOrderDataSet();
-
-
-                DataTable order = MySqlFunctions.GetTable(
+            DataTable order = MySqlFunctions.GetTable(
                     "select tos.id, order_types.name as order_type, tos.order_datetime, " +
                     "tables.portion, tables.name as table_name, tos.deliver_to_name, tos.deliver_to_phone, " +
                     "tos.deliver_to_address, tos.received_through, tos.order_amount_ex_st as ex_st, " +
@@ -385,13 +316,20 @@ namespace RmsPrinting
                     "where tos.id = " + order_id + "; ", Program.GlobalConn);
 
 
-
-                DataTable detail = MySqlFunctions.GetTable(
-                    "select tos_details.to_id as order_id, items.category, items.code as item_code , items.name as item_name, " +
+            string detail_query = "select tos_details.to_id as order_id, items.category, items.code as item_code , items.name as item_name, " +
                     "tos_details.qty, tos_details.rate, tos_details.amount " +
                     "from tos_details " +
                     "join items on items.id = tos_details.item_id " +
-                    " where tos_details.to_id = " + order_id + "; ", Program.GlobalConn);
+                    " where tos_details.to_id = " + order_id;
+
+            if (category != "")
+            {
+                detail_query += " and items.category = '" + category + "' ";
+            }
+
+            
+
+                DataTable detail = MySqlFunctions.GetTable( detail_query, Program.GlobalConn);
 
 
                 foreach (DataRow r in order.Rows)
@@ -435,14 +373,31 @@ namespace RmsPrinting
                         );
                 }
 
-                report.DataDefinition.FormulaFields["ReportTitle"].Text = "'" + title + "'";
-                report.SetDataSource(ds);
+                return ds;
+        }
 
+        private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")
+        {
+
+                NewOrderReport report = new NewOrderReport();
+            try
+            {
+                
+                
+                report.DataDefinition.FormulaFields["ReportTitle"].Text = "'" + title + "'";
+                
 
                 foreach (DataRow r in kitchen_printers_dt.Rows)
                 {
-                    report.PrintOptions.PrinterName = r["Printer"].ToString();
-                    report.PrintToPrinter(1, false, 0, 0);
+
+                    NewOrderDataSet ds = generateNewOrderDataSet(order_id, r["Category"].ToString());
+
+                    if (ds.OrderDetail.Rows.Count > 0)
+                    {
+                        report.SetDataSource(ds);
+                        report.PrintOptions.PrinterName = r["Printer"].ToString();
+                        report.PrintToPrinter(1, false, 0, 0);
+                    }
                 }
 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' " +
