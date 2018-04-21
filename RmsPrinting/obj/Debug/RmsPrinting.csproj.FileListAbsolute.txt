@@ -89,7 +89,6 @@ C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\bin\Debug\Google.Prot
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\bin\Debug\stdole.dll
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csprojResolveAssemblyReference.cache
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.FrmAddPrinter.resources
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.FrmConnectionSettings.resources
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.FrmMain.resources
