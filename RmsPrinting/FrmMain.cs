@@ -81,6 +81,7 @@ namespace RmsPrinting
             catch (Exception ex)
             {
 
+                throw ex;
                 MessageBox.Show("Error Occurred: " + ex.ToString());
 
 
