@@ -31,7 +31,7 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error Occurred: " + ex.Message);
+                MessageBox.Show("Error Occurred: " + ex.ToString());
                 return false;
             }
         }
@@ -54,7 +54,7 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error Occurred: " + ex.Message);
+                MessageBox.Show("Error Occurred: " + ex.ToString());
                 conn.Close(); conn.ClearPoolAsync(conn);
                 conn.Dispose();
 
@@ -96,7 +96,7 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error Occurred: " + ex.Message);
+                MessageBox.Show("Error Occurred: " + ex.ToString());
                 return null;
             }
             

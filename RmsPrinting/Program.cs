@@ -44,7 +44,7 @@ namespace RmsPrinting
             catch (Exception ex)
             {
 
-                MessageBox.Show("Error Occurred: " + ex.Message);
+                MessageBox.Show("Error Occurred: " + ex.ToString());
             }
 
         }
@@ -65,7 +65,7 @@ namespace RmsPrinting
             catch (Exception ex)
             {
 
-                MessageBox.Show("Error Occurred: " + ex.Message);
+                MessageBox.Show("Error Occurred: " + ex.ToString());
                 if (fs != null)
                     fs.Close();
                 return null;
