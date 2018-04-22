@@ -31,7 +31,7 @@ namespace RmsPrinting
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error Occurred: " + ex.ToString());
+                MessageBox.Show("Error Occurred: " + ex.ToString() + "\n\n\n" + "Query: " + query);
                 return false;
             }
         }
