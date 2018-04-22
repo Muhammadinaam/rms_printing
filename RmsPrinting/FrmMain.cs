@@ -175,7 +175,7 @@ namespace RmsPrinting
 
 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
-                    " error = '" + ex.Message + "' " +
+                    " error = '" + MySql.Data.MySqlClient.MySqlHelper.EscapeString( ex.Message ) + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
             }
             finally {
@@ -276,7 +276,7 @@ namespace RmsPrinting
             {
 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
-                    " error = '" + ex.Message + "' " +
+                    " error = '" + MySql.Data.MySqlClient.MySqlHelper.EscapeString(ex.Message) + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
             }
             finally
@@ -312,7 +312,7 @@ namespace RmsPrinting
             {
                 
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
-                    " error = '" + ex.Message + "' " +
+                    " error = '" + MySql.Data.MySqlClient.MySqlHelper.EscapeString(ex.Message) + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
             }
             finally
@@ -430,7 +430,7 @@ namespace RmsPrinting
             catch (Exception ex)
             {
                 MySqlFunctions.SqlNonQuery("update print_jobs set executed_at = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "', " +
-                    " error = '"+ex.Message+"' " +
+                    " error = '"+ MySql.Data.MySqlClient.MySqlHelper.EscapeString(ex.Message) + "' " +
                     "where id = '" + job_id + "'", Program.GlobalConn);
 
             }
