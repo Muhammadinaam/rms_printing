@@ -120,6 +120,11 @@ namespace RmsPrinting
             pos_printers_dt = Program.loadDTfromFile(pos_printers);
             kitchen_printers_dt = Program.loadDTfromFile(kitchen_printers);
 
+            if (pos_printers_dt == null || kitchen_printers_dt == null)
+            {
+                throw new Exception("Unable to open printers files.");
+            }
+
             
 
             DataTable dt_print_jobs = MySqlFunctions.GetTable("SELECT * FROM print_jobs where executed_at is null;", Program.GlobalConn);
@@ -140,15 +145,21 @@ namespace RmsPrinting
                 }
                 else if (r["print_type"].ToString() == "Customer Print")
                 {
-                    PrintOrderForCustomer(r["entity_id"].ToString(), r["id"].ToString());
+                    PrintOrder(r["entity_id"].ToString(), r["id"].ToString(), false);
                 }
                 else if (r["print_type"].ToString() == "Order Cancelled")
                 {
                     PrintOrderCancellation(r["entity_id"].ToString(), r["id"].ToString());
                 }
+                else if (r["print_type"].ToString() == "Invoice Print")
+                {
+                    PrintOrder(r["entity_id"].ToString(), r["id"].ToString(), true);
+                }
 
             }
         }
+
+        
 
         private void PrintOrderCancellation(string order_id, string job_id)
         {
@@ -287,7 +298,7 @@ namespace RmsPrinting
 
         }
 
-        private void PrintOrderForCustomer(string order_id, string job_id)
+        private void PrintOrder(string order_id, string job_id, bool printInvoice)
         {
 
                 PrintForCustomer report = new PrintForCustomer();
@@ -296,7 +307,48 @@ namespace RmsPrinting
 
                 NewOrderDataSet ds = generateNewOrderDataSet(order_id);
 
+                if (printInvoice)
+                {
+                    string invoice_id = "";
+
+                    DataTable inv_dt = null;
+                    inv_dt = MySqlFunctions.GetTable("select id from invoices where order_id = '" + ds.Order.Rows[0]["id"].ToString() + "' limit 1", Program.GlobalConn);
+
+                    if (inv_dt != null && inv_dt.Rows.Count > 0)
+                    {
+                        invoice_id = "Invoice:" + inv_dt.Rows[0]["id"].ToString();
+                    }
+
+                    inv_dt = MySqlFunctions.GetTable("select id from ent_bills where order_id = '" + ds.Order.Rows[0]["id"].ToString() + "' limit 1", Program.GlobalConn);
+
+                    if (inv_dt != null && inv_dt.Rows.Count > 0)
+                    {
+                        invoice_id = "Ent Bill:" + inv_dt.Rows[0]["id"].ToString();
+                    }
+
+                    if (invoice_id != "")
+                    {
+                        report.DataDefinition.FormulaFields["invoice_id"].Text = "'" + invoice_id + "'";
+                    }
+                }
+
                 report.SetDataSource(ds);
+
+                DataTable restaurant_infoDT = MySqlFunctions.GetTable("select " +
+                    "(select `value` from settings where slug = 'restaurant_name') as 'name', " +
+                    "(select `value` from settings where slug = 'restaurant_address') as 'address', " +
+                    "(select `value` from settings where slug = 'restaurant_ntn') as 'ntn', " +
+                    "(select `value` from settings where slug = 'restaurant_stn') as 'stn'; ", Program.GlobalConn);
+
+                if(restaurant_infoDT != null && restaurant_infoDT.Rows.Count > 0)
+                {
+                    DataRow r = restaurant_infoDT.Rows[0];
+
+                    report.DataDefinition.FormulaFields["restaurant_name"].Text = "'" + r["name"].ToString() + "'";
+                    report.DataDefinition.FormulaFields["restaurant_address"].Text = "'" + r["address"].ToString() + "'";
+                    report.DataDefinition.FormulaFields["ntn"].Text = "'" + r["ntn"].ToString() + "'";
+                    report.DataDefinition.FormulaFields["stn"].Text = "'" + r["stn"].ToString() + "'";
+                }
 
 
                 foreach (DataRow r in pos_printers_dt.Rows)
