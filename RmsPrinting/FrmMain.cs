@@ -393,7 +393,7 @@ namespace RmsPrinting
 
 
             string detail_query = "select tos_details.to_id as order_id, items.category, items.code as item_code , items.name as item_name, " +
-                    "tos_details.qty, tos_details.rate, tos_details.amount " +
+                    "tos_details.qty, tos_details.rate, tos_details.amount, tos_details.item_notes " +
                     "from tos_details " +
                     "join items on items.id = tos_details.item_id " +
                     " where tos_details.to_id = " + order_id;
@@ -444,8 +444,8 @@ namespace RmsPrinting
                         r["item_name"].ToString(),
                         (decimal)r["qty"],
                         (decimal)r["rate"],
-                        (decimal)r["amount"]
-
+                        (decimal)r["amount"],
+                        r["item_notes"].ToString()
                         );
                 }
 
@@ -455,7 +455,7 @@ namespace RmsPrinting
         private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")
         {
 
-                NewOrderReport report = new NewOrderReport();
+            NewOrderReport report = new NewOrderReport();
             try
             {
                 

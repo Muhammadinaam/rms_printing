@@ -12,7 +12,7 @@
   <xs:element name="NewOrderDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="NewOrderDataSet" msprop:Generator_UserDSName="NewOrderDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Order" msprop:Generator_TableClassName="OrderDataTable" msprop:Generator_TableVarName="tableOrder" msprop:Generator_TablePropName="Order" msprop:Generator_RowDeletingName="OrderRowDeleting" msprop:Generator_RowChangingName="OrderRowChanging" msprop:Generator_RowEvHandlerName="OrderRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderRowDeleted" msprop:Generator_UserTableName="Order" msprop:Generator_RowChangedName="OrderRowChanged" msprop:Generator_RowEvArgName="OrderRowChangeEvent" msprop:Generator_RowClassName="OrderRow">
+        <xs:element name="Order" msprop:Generator_TableClassName="OrderDataTable" msprop:Generator_TableVarName="tableOrder" msprop:Generator_RowChangedName="OrderRowChanged" msprop:Generator_TablePropName="Order" msprop:Generator_RowDeletingName="OrderRowDeleting" msprop:Generator_RowChangingName="OrderRowChanging" msprop:Generator_RowEvHandlerName="OrderRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderRowDeleted" msprop:Generator_RowClassName="OrderRow" msprop:Generator_UserTableName="Order" msprop:Generator_RowEvArgName="OrderRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" minOccurs="0" />
@@ -33,7 +33,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="OrderDetail" msprop:Generator_TableClassName="OrderDetailDataTable" msprop:Generator_TableVarName="tableOrderDetail" msprop:Generator_TablePropName="OrderDetail" msprop:Generator_RowDeletingName="OrderDetailRowDeleting" msprop:Generator_RowChangingName="OrderDetailRowChanging" msprop:Generator_RowEvHandlerName="OrderDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderDetailRowDeleted" msprop:Generator_UserTableName="OrderDetail" msprop:Generator_RowChangedName="OrderDetailRowChanged" msprop:Generator_RowEvArgName="OrderDetailRowChangeEvent" msprop:Generator_RowClassName="OrderDetailRow">
+        <xs:element name="OrderDetail" msprop:Generator_TableClassName="OrderDetailDataTable" msprop:Generator_TableVarName="tableOrderDetail" msprop:Generator_RowChangedName="OrderDetailRowChanged" msprop:Generator_TablePropName="OrderDetail" msprop:Generator_RowDeletingName="OrderDetailRowDeleting" msprop:Generator_RowChangingName="OrderDetailRowChanging" msprop:Generator_RowEvHandlerName="OrderDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="OrderDetailRowDeleted" msprop:Generator_RowClassName="OrderDetailRow" msprop:Generator_UserTableName="OrderDetail" msprop:Generator_RowEvArgName="OrderDetailRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="order_id" msprop:Generator_ColumnVarNameInTable="columnorder_id" msprop:Generator_ColumnPropNameInRow="order_id" msprop:Generator_ColumnPropNameInTable="order_idColumn" msprop:Generator_UserColumnName="order_id" type="xs:string" minOccurs="0" />
@@ -43,6 +43,7 @@
               <xs:element name="qty" msprop:Generator_ColumnVarNameInTable="columnqty" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_UserColumnName="qty" type="xs:decimal" minOccurs="0" />
               <xs:element name="rate" msprop:Generator_ColumnVarNameInTable="columnrate" msprop:Generator_ColumnPropNameInRow="rate" msprop:Generator_ColumnPropNameInTable="rateColumn" msprop:Generator_UserColumnName="rate" type="xs:decimal" minOccurs="0" />
               <xs:element name="amount" msprop:Generator_ColumnVarNameInTable="columnamount" msprop:Generator_ColumnPropNameInRow="amount" msprop:Generator_ColumnPropNameInTable="amountColumn" msprop:Generator_UserColumnName="amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="item_notes" msprop:Generator_ColumnVarNameInTable="columnitem_notes" msprop:Generator_ColumnPropNameInRow="item_notes" msprop:Generator_ColumnPropNameInTable="item_notesColumn" msprop:Generator_UserColumnName="item_notes" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -51,7 +52,7 @@
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Order_OrderDetail" msdata:parent="Order" msdata:child="OrderDetail" msdata:parentkey="id" msdata:childkey="order_id" msprop:Generator_UserChildTable="OrderDetail" msprop:Generator_ChildPropName="GetOrderDetailRows" msprop:Generator_UserRelationName="Order_OrderDetail" msprop:Generator_ParentPropName="OrderRow" msprop:Generator_RelationVarName="relationOrder_OrderDetail" msprop:Generator_UserParentTable="Order" />
+      <msdata:Relationship name="Order_OrderDetail" msdata:parent="Order" msdata:child="OrderDetail" msdata:parentkey="id" msdata:childkey="order_id" msprop:Generator_UserChildTable="OrderDetail" msprop:Generator_ChildPropName="GetOrderDetailRows" msprop:Generator_UserRelationName="Order_OrderDetail" msprop:Generator_RelationVarName="relationOrder_OrderDetail" msprop:Generator_UserParentTable="Order" msprop:Generator_ParentPropName="OrderRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
