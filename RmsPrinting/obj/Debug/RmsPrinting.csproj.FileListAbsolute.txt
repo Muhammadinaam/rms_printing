@@ -99,3 +99,4 @@ C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.exe
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.pdb
 C:\Users\Inaam Munir\Google Drive\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csprojResolveAssemblyReference.cache
+D:\xampp\locale\inaam\rms_printing\RmsPrinting\bin\Debug\MySql.Data.dll

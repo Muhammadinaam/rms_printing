@@ -778,6 +778,8 @@ namespace RmsPrinting {
             
             private global::System.Data.DataColumn columnamount;
             
+            private global::System.Data.DataColumn columnitem_notes;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public OrderDetailDataTable() {
@@ -869,6 +871,14 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn item_notesColumn {
+                get {
+                    return this.columnitem_notes;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -904,7 +914,7 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OrderDetailRow AddOrderDetailRow(OrderRow parentOrderRowByOrder_OrderDetail, string category, string item_code, string item_name, decimal qty, decimal rate, decimal amount) {
+            public OrderDetailRow AddOrderDetailRow(OrderRow parentOrderRowByOrder_OrderDetail, string category, string item_code, string item_name, decimal qty, decimal rate, decimal amount, string item_notes) {
                 OrderDetailRow rowOrderDetailRow = ((OrderDetailRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -913,7 +923,8 @@ namespace RmsPrinting {
                         item_name,
                         qty,
                         rate,
-                        amount};
+                        amount,
+                        item_notes};
                 if ((parentOrderRowByOrder_OrderDetail != null)) {
                     columnValuesArray[0] = parentOrderRowByOrder_OrderDetail[0];
                 }
@@ -946,6 +957,7 @@ namespace RmsPrinting {
                 this.columnqty = base.Columns["qty"];
                 this.columnrate = base.Columns["rate"];
                 this.columnamount = base.Columns["amount"];
+                this.columnitem_notes = base.Columns["item_notes"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -965,6 +977,8 @@ namespace RmsPrinting {
                 base.Columns.Add(this.columnrate);
                 this.columnamount = new global::System.Data.DataColumn("amount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnamount);
+                this.columnitem_notes = new global::System.Data.DataColumn("item_notes", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnitem_notes);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1665,6 +1679,22 @@ namespace RmsPrinting {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string item_notes {
+                get {
+                    try {
+                        return ((string)(this[this.tableOrderDetail.item_notesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'item_notes\' in table \'OrderDetail\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableOrderDetail.item_notesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public OrderRow OrderRow {
                 get {
                     return ((OrderRow)(this.GetParentRow(this.Table.ParentRelations["Order_OrderDetail"])));
@@ -1756,6 +1786,18 @@ namespace RmsPrinting {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetamountNull() {
                 this[this.tableOrderDetail.amountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Isitem_notesNull() {
+                return this.IsNull(this.tableOrderDetail.item_notesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setitem_notesNull() {
+                this[this.tableOrderDetail.item_notesColumn] = global::System.Convert.DBNull;
             }
         }
         
