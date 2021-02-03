@@ -344,10 +344,10 @@ namespace RmsPrinting
                 {
                     DataRow r = restaurant_infoDT.Rows[0];
 
-                    report.DataDefinition.FormulaFields["restaurant_name"].Text = "'" + r["name"].ToString() + "'";
-                    report.DataDefinition.FormulaFields["restaurant_address"].Text = "'" + r["address"].ToString() + "'";
-                    report.DataDefinition.FormulaFields["ntn"].Text = "'" + r["ntn"].ToString() + "'";
-                    report.DataDefinition.FormulaFields["stn"].Text = "'" + r["stn"].ToString() + "'";
+                    //report.DataDefinition.FormulaFields["restaurant_name"].Text = "'" + r["name"].ToString() + "'";
+                    //report.DataDefinition.FormulaFields["restaurant_address"].Text = "'" + r["address"].ToString() + "'";
+                    //report.DataDefinition.FormulaFields["ntn"].Text = "'" + r["ntn"].ToString() + "'";
+                    //report.DataDefinition.FormulaFields["stn"].Text = "'" + r["stn"].ToString() + "'";
                 }
 
 
