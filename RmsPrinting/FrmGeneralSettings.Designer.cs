@@ -91,6 +91,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmGeneralSettings";
             this.Text = "General Settings";
+            this.Load += new System.EventHandler(this.FrmGeneralSettings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

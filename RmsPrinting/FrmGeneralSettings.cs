@@ -33,5 +33,10 @@ namespace RmsPrinting
             rtxbHeader.SaveFile(path + "/header.txt");
             rtxbFooter.SaveFile(path + "/footer.txt");
         }
+
+        private void FrmGeneralSettings_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
