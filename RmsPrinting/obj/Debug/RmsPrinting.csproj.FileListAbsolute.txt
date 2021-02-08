@@ -135,3 +135,4 @@ D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csprojAssemblyReferen
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csproj.CopyComplete
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.exe
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.pdb
+D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.FrmGeneralSettings.resources

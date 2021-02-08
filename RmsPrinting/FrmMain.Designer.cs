@@ -38,6 +38,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.PrintTimer = new System.Windows.Forms.Timer(this.components);
+            this.generalSettingsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,8 @@
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databaseConnectionToolStripMenuItem,
-            this.printersToolStripMenuItem});
+            this.printersToolStripMenuItem,
+            this.generalSettingsMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -111,6 +113,13 @@
             this.PrintTimer.Interval = 2000;
             this.PrintTimer.Tick += new System.EventHandler(this.PrintTimer_Tick);
             // 
+            // generalSettingsMenuItem
+            // 
+            this.generalSettingsMenuItem.Name = "generalSettingsMenuItem";
+            this.generalSettingsMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.generalSettingsMenuItem.Text = "General Settings";
+            this.generalSettingsMenuItem.Click += new System.EventHandler(this.generalSettingsMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +152,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Timer PrintTimer;
+        private System.Windows.Forms.ToolStripMenuItem generalSettingsMenuItem;
     }
 }
 

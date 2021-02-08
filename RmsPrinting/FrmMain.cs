@@ -350,6 +350,21 @@ namespace RmsPrinting
                     //report.DataDefinition.FormulaFields["stn"].Text = "'" + r["stn"].ToString() + "'";
                 }
 
+                var path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                var rtb = new RichTextBox();
+                rtb.LoadFile(path + "/header.txt");
+                var headerLines = rtb.Text.Split('\n');
+                for(int i = 0; i < headerLines.Length && i < 5; i++)
+                {
+                    report.DataDefinition.FormulaFields["header_line" + i.ToString()].Text = "'" + headerLines[i] + "'";
+                }
+
+                rtb.LoadFile(path + "/footer.txt");
+                var footerLines = rtb.Text.Split('\n');
+                for (int i = 0; i < footerLines.Length && i < 5; i++)
+                {
+                    report.DataDefinition.FormulaFields["footer_line" + i.ToString()].Text = "'" + footerLines[i] + "'";
+                }
 
                 foreach (DataRow r in pos_printers_dt.Rows)
                 {
@@ -516,6 +531,12 @@ namespace RmsPrinting
                 MessageBox.Show(e.Error.ToString());
                 
             }
+        }
+
+        private void generalSettingsMenuItem_Click(object sender, EventArgs e)
+        {
+            var f = new FrmGeneralSettings();
+            f.ShowDialog();
         }
     }
 }

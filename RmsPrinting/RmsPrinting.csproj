@@ -70,6 +70,12 @@
     <Compile Include="FrmConnectionSettings.Designer.cs">
       <DependentUpon>FrmConnectionSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmGeneralSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGeneralSettings.Designer.cs">
+      <DependentUpon>FrmGeneralSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmConnectionSettings.resx">
       <DependentUpon>FrmConnectionSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGeneralSettings.resx">
+      <DependentUpon>FrmGeneralSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
