@@ -47,6 +47,17 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="TaxDetail" msprop:Generator_TableClassName="TaxDetailDataTable" msprop:Generator_TableVarName="tableTaxDetail" msprop:Generator_RowChangedName="TaxDetailRowChanged" msprop:Generator_TablePropName="TaxDetail" msprop:Generator_RowDeletingName="TaxDetailRowDeleting" msprop:Generator_RowChangingName="TaxDetailRowChanging" msprop:Generator_RowEvHandlerName="TaxDetailRowChangeEventHandler" msprop:Generator_RowDeletedName="TaxDetailRowDeleted" msprop:Generator_RowClassName="TaxDetailRow" msprop:Generator_UserTableName="TaxDetail" msprop:Generator_RowEvArgName="TaxDetailRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="sales_tax_rate" msprop:Generator_ColumnVarNameInTable="columnsales_tax_rate" msprop:Generator_ColumnPropNameInRow="sales_tax_rate" msprop:Generator_ColumnPropNameInTable="sales_tax_rateColumn" msprop:Generator_UserColumnName="sales_tax_rate" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sales_tax_amount" msprop:Generator_ColumnVarNameInTable="columnsales_tax_amount" msprop:Generator_ColumnPropNameInRow="sales_tax_amount" msprop:Generator_ColumnPropNameInTable="sales_tax_amountColumn" msprop:Generator_UserColumnName="sales_tax_amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="total_amount" msprop:Generator_ColumnVarNameInTable="columntotal_amount" msprop:Generator_ColumnPropNameInRow="total_amount" msprop:Generator_ColumnPropNameInTable="total_amountColumn" msprop:Generator_UserColumnName="total_amount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>

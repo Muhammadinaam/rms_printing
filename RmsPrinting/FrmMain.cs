@@ -413,6 +413,9 @@ namespace RmsPrinting
                     "join items on items.id = tos_details.item_id " +
                     " where tos_details.to_id = " + order_id;
 
+            string closingAccountsQuery = @"SELECT id, NAME, sales_tax_rate FROM 
+closing_accounts WHERE show_on_print_for_customer = TRUE;";
+
             if (category != "")
             {
                 detail_query += " and items.category = '" + category + "' ";
@@ -420,51 +423,72 @@ namespace RmsPrinting
 
             
 
-                DataTable detail = MySqlFunctions.GetTable( detail_query, Program.GlobalConn);
+            DataTable detail = MySqlFunctions.GetTable( detail_query, Program.GlobalConn);
+                
+            DataTable closingAccounts = MySqlFunctions.GetTable(closingAccountsQuery, Program.GlobalConn);
 
+            decimal discount = 0;
+            decimal before_discount = 0;
+            foreach (DataRow r in order.Rows)
+            {
+                decimal cover = r["cover"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["cover"].ToString());
+                discount = r["discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["discount"].ToString());
+                before_discount = r["before_discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["before_discount"].ToString());
 
-                foreach (DataRow r in order.Rows)
-                {
-                    decimal cover = r["cover"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["cover"].ToString());
-                    decimal discount = r["discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["discount"].ToString());
-                    decimal before_discount = r["before_discount"].ToString() == "" ? decimal.Parse("0") : decimal.Parse(r["before_discount"].ToString());
+                ds.Order.AddOrderRow(
+                    r["id"].ToString(),
+                    r["order_type"].ToString(),
+                    (System.DateTime)r["order_datetime"],
+                    r["portion"].ToString(),
+                    r["table_name"].ToString(),
+                    r["deliver_to_name"].ToString(),
+                    r["deliver_to_phone"].ToString(),
+                    r["deliver_to_address"].ToString(),
+                    r["received_through"].ToString(),
+                    (decimal)r["ex_st"],
+                    (decimal)r["st"],
+                    (decimal)r["inc_st"],
 
-                    ds.Order.AddOrderRow(
-                        r["id"].ToString(),
-                        r["order_type"].ToString(),
-                        (System.DateTime)r["order_datetime"],
-                        r["portion"].ToString(),
-                        r["table_name"].ToString(),
-                        r["deliver_to_name"].ToString(),
-                        r["deliver_to_phone"].ToString(),
-                        r["deliver_to_address"].ToString(),
-                        r["received_through"].ToString(),
-                        (decimal)r["ex_st"],
-                        (decimal)r["st"],
-                        (decimal)r["inc_st"],
+                    cover,
+                    discount,
+                    before_discount
+                    );
+            }
 
-                        cover,
-                        discount,
-                        before_discount
-                        );
-                }
+            decimal after_discount = before_discount - discount;
 
+            foreach (DataRow r in closingAccounts.Rows)
+            {
+                //NAME, sales_tax_rate
+                int id = 0;
+                string name = r["name"].ToString();
+                decimal salesTaxRate = Convert.ToDecimal( r["sales_tax_rate"] );
+                decimal salesTaxAmount = Math.Round( after_discount * salesTaxRate / 100 );
+                decimal totalAmount = Math.Round( after_discount + salesTaxAmount );
+                ds.TaxDetail.AddTaxDetailRow(
+                    id,
+                    name,
+                    salesTaxRate,
+                    salesTaxAmount,
+                    totalAmount
+                );
+            }
 
-                foreach (DataRow r in detail.Rows)
-                {
-                    ds.OrderDetail.AddOrderDetailRow(
-                        (NewOrderDataSet.OrderRow)ds.Order.Rows[0],
-                        r["category"].ToString(),
-                        r["item_code"].ToString(),
-                        r["item_name"].ToString(),
-                        (decimal)r["qty"],
-                        (decimal)r["rate"],
-                        (decimal)r["amount"],
-                        r["item_notes"].ToString()
-                        );
-                }
+            foreach (DataRow r in detail.Rows)
+            {
+                ds.OrderDetail.AddOrderDetailRow(
+                    (NewOrderDataSet.OrderRow)ds.Order.Rows[0],
+                    r["category"].ToString(),
+                    r["item_code"].ToString(),
+                    r["item_name"].ToString(),
+                    (decimal)r["qty"],
+                    (decimal)r["rate"],
+                    (decimal)r["amount"],
+                    r["item_notes"].ToString()
+                    );
+            }
 
-                return ds;
+            return ds;
         }
 
         private void PrintOrderForKitchens(string order_id, string job_id, string title = "New Order")

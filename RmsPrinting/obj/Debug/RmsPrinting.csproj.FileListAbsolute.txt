@@ -131,8 +131,8 @@ D:\projects\rms_printing\RmsPrinting\bin\Debug\CrystalDecisions.ReportAppServer.
 D:\projects\rms_printing\RmsPrinting\bin\Debug\CrystalDecisions.ReportAppServer.CommonControls.dll
 D:\projects\rms_printing\RmsPrinting\bin\Debug\stdole.dll
 D:\projects\rms_printing\RmsPrinting\bin\Debug\Newtonsoft.Json.xml
-D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csprojAssemblyReference.cache
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csproj.CopyComplete
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.exe
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.pdb
 D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.FrmGeneralSettings.resources
+D:\projects\rms_printing\RmsPrinting\obj\Debug\RmsPrinting.csprojAssemblyReference.cache
