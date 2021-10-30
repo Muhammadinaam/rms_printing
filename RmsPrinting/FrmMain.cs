@@ -328,7 +328,7 @@ namespace RmsPrinting
 
                     if (invoice_id != "")
                     {
-                        report.DataDefinition.FormulaFields["invoice_id"].Text = "'" + invoice_id + "'";
+                        //report.DataDefinition.FormulaFields["invoice_id"].Text = "'" + invoice_id + "'";
                     }
                 }
 
